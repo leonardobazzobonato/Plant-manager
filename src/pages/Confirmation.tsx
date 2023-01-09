@@ -1,11 +1,17 @@
-import React from "react";
-import { StyleSheet, Platform, View, Text } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-import colors from "../styles/colors";
-import { Button } from "../components/Button";
-import fonts from "../styles/fonts";
+import React from "react"
+import { StyleSheet, Platform, View, Text } from "react-native"
+import { AntDesign } from "@expo/vector-icons"
+import colors from "../styles/colors"
+import { Button } from "../components/Button"
+import fonts from "../styles/fonts"
+import { useNavigation } from "@react-navigation/native"
 
 export function Confirmation() {
+  const navigation = useNavigation()
+  function handleMoveOn() {
+    navigation.navigate("PlantSelect")
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -18,11 +24,11 @@ export function Confirmation() {
         </Text>
 
         <View style={styles.footer}>
-          <Button title="Começar" />
+          <Button title="Começar" onPress={handleMoveOn} />
         </View>
       </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -63,4 +69,4 @@ const styles = StyleSheet.create({
     paddingHorizontal: 50,
     marginTop: 20,
   },
-});
+})

@@ -1,6 +1,6 @@
-import { Fontisto } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import { Fontisto } from "@expo/vector-icons"
+import { useNavigation } from "@react-navigation/native"
+import React, { useState } from "react"
 import {
   KeyboardAvoidingView,
   Platform,
@@ -10,34 +10,34 @@ import {
   View,
   TouchableWithoutFeedback,
   Keyboard,
-} from "react-native";
-import { Button } from "../components/Button";
-import colors from "../styles/colors";
-import fonts from "../styles/fonts";
+} from "react-native"
+import { Button } from "../components/Button"
+import colors from "../styles/colors"
+import fonts from "../styles/fonts"
 
 export function UserIdentification() {
-  const [isFocused, setIsFocused] = useState(false);
-  const [isFilled, setIsFilled] = useState(false);
-  const [name, setName] = useState<string>();
+  const [isFocused, setIsFocused] = useState(false)
+  const [isFilled, setIsFilled] = useState(false)
+  const [name, setName] = useState<string>()
 
-  const navigation = useNavigation();
+  const navigation = useNavigation()
 
   function handleSubmit() {
-    navigation.navigate("Confirmation");
+    navigation.navigate("Confirmation")
   }
 
   function handleInputBlur() {
-    setIsFocused(false);
-    setIsFilled(!!name);
+    setIsFocused(false)
+    setIsFilled(!!name)
   }
 
   function handleInputFocus() {
-    setIsFocused(true);
+    setIsFocused(true)
   }
 
   function handleInputChange(value: string) {
-    setIsFilled(!!value);
-    setName(value);
+    setIsFilled(!!value)
+    setName(value)
   }
 
   return (
@@ -71,7 +71,7 @@ export function UserIdentification() {
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -124,4 +124,4 @@ const styles = StyleSheet.create({
     marginTop: 40,
     paddingHorizontal: 20,
   },
-});
+})
