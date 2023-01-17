@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/core"
 import React, { useEffect, useState } from "react"
 import { Text, View, StyleSheet, FlatList } from "react-native"
 import { EnvironmentButton } from "../components/EnvironmentButton"
@@ -12,7 +13,7 @@ interface EnvironmentProps {
   title: string
 }
 
-interface PlantProps {
+export interface PlantProps {
   id: number
   name: string
   about: string
@@ -31,6 +32,8 @@ export function PlantSelect() {
   const [filteredPlant, setFilteredPlant] = useState<PlantProps[]>([])
   const [environmentSelected, setEnvironmentSelected] = useState("all")
 
+  const navigation = useNavigation()
+
   function handleEnvironmentSelected(environment: string) {
     setEnvironmentSelected(environment)
 
@@ -43,6 +46,10 @@ export function PlantSelect() {
     )
 
     setFilteredPlant(filtered)
+  }
+
+  function handlePlantSelect(plant: PlantProps) {
+    navigation.navigate("PlantSave", { plant })
   }
 
   useEffect(() => {
@@ -80,6 +87,7 @@ export function PlantSelect() {
       </View>
       <View>
         <FlatList
+          keyExtractor={(item) => String(item.key)}
           data={environment}
           renderItem={({ item }) => (
             <EnvironmentButton
@@ -95,8 +103,14 @@ export function PlantSelect() {
       </View>
       <View style={styles.plants}>
         <FlatList
+          keyExtractor={(item) => String(item.id)}
           data={filteredPlant}
-          renderItem={({ item }) => <PlantCardPrimary data={item} />}
+          renderItem={({ item }) => (
+            <PlantCardPrimary
+              data={item}
+              onPress={() => handlePlantSelect(item)}
+            />
+          )}
           showsVerticalScrollIndicator={false}
           numColumns={2}
         />

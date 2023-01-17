@@ -1,5 +1,5 @@
 import { Fontisto } from "@expo/vector-icons"
-import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/core"
 import React, { useState } from "react"
 import {
   KeyboardAvoidingView,
@@ -10,7 +10,9 @@ import {
   View,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert,
 } from "react-native"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import { Button } from "../components/Button"
 import colors from "../styles/colors"
 import fonts from "../styles/fonts"
@@ -23,6 +25,8 @@ export function UserIdentification() {
   const navigation = useNavigation()
 
   function handleSubmit() {
+    if (!name) return Alert.alert("Me diz como chamar você?")
+    AsyncStorage.setItem("@plantmanager:user", name)
     navigation.navigate("Confirmation")
   }
 

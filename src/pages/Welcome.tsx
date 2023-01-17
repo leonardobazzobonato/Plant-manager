@@ -1,5 +1,5 @@
 import { Feather } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/core";
 import React from "react";
 import {
   Dimensions,

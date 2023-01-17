@@ -4,7 +4,7 @@ import { AntDesign } from "@expo/vector-icons"
 import colors from "../styles/colors"
 import { Button } from "../components/Button"
 import fonts from "../styles/fonts"
-import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/core"
 
 export function Confirmation() {
   const navigation = useNavigation()
