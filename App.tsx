@@ -18,3 +18,5 @@ export default function App() {
 
   return <Routes />;
 }
+
+// json-server ./src/services/server.json --host 192.168.0.217 --port 3333

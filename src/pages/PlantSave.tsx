@@ -1,4 +1,4 @@
-import { useRoute } from "@react-navigation/native"
+import { useNavigation, useRoute } from "@react-navigation/native"
 import React, { useState } from "react"
 import { Text, View, StyleSheet, Image, Alert, Platform } from "react-native"
 import { SvgFromUri } from "react-native-svg"
@@ -11,25 +11,17 @@ import fonts from "../styles/fonts"
 import DateTimePicker, { Event } from "@react-native-community/datetimepicker"
 import { format, isBefore } from "date-fns"
 import { TouchableOpacity } from "react-native-gesture-handler"
+import { PlantProps, savePlant } from "../libs/storage"
 
 interface Params {
-  plant: {
-    id: number
-    name: string
-    about: string
-    water_tips: string
-    photo: string
-    environments: [string]
-    frequency: {
-      times: number
-      repeat_every: string
-    }
-  }
+  plant: PlantProps
 }
 
 export function PlantSave() {
   const route = useRoute()
   const { plant } = route.params as Params
+
+  const navigation = useNavigation()
 
   const [selectedDateTime, setSelectedDateTime] = useState(new Date())
   const [showDatePicker, setShowDatePicker] = useState<boolean>(
@@ -53,6 +45,26 @@ export function PlantSave() {
 
   function handleOpenDateTimePicker() {
     setShowDatePicker((oldState) => !oldState)
+  }
+
+  async function handleSave() {
+    try {
+      await savePlant({
+        ...plant,
+        dateTimeNotification: selectedDateTime,
+      })
+
+      navigation.navigate("Confirmation", {
+        title: "Tudo certo",
+        subtitle:
+          "Fique tranquilo que sempre vamos lembrar você de cuidar das suas plantas.",
+        buttonTitle: "Muito obrigado",
+        icon: "hug",
+        nextScreen: "MyPlants",
+      })
+    } catch (error) {
+      Alert.alert("Não foi possível salvar.")
+    }
   }
 
   return (
@@ -95,7 +107,7 @@ export function PlantSave() {
           </TouchableOpacity>
         )}
 
-        <Button title="Cadastral planta" onPress={() => {}} />
+        <Button title="Cadastral planta" onPress={handleSave} />
       </View>
     </View>
   )
